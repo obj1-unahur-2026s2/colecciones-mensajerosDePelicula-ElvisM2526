@@ -20,4 +20,23 @@ describe "prueba de test de Mensajeros de pelicula" {
   }
 
   //parte 2
+  test "la mensajeria no es grande y contrata un mensajeros con peso 95kg y 80kg" {
+    mensajeria.contratarAUnMensajero(chuckNorris)
+    mensajeria.contratarAUnMensajero(roberto)
+    roberto.cambiarVehiculo(bicicleta)
+    assert.equals(95, roberto.peso())
+    assert.equals(80, chuckNorris.peso())
+    assert.notThat(mensajeria.analizarSiLaMensajeriaEsGrande())
+  }
+
+  test "describe el peso del ultimo mensajero y el primer mensajero entrega un paquete" {
+    paquete.cambiarDestino(puenteDeBrooklyn)
+    roberto.cambiarVehiculo(bicicleta)
+    paquete.estadoDelPago(true)
+    mensajeria.contratarAUnMensajero(roberto)
+    mensajeria.contratarAUnMensajero(neo)  
+    mensajeria.contratarAUnMensajero(chuckNorris)
+    assert.equals(80, mensajeria.elPesoDelUltimoMensajeroDeLaEmpresa())
+    assert.that(mensajeria.elPaquetePuedeSerEntregadoPorElPrimerEmpleado(paquete) )
+  }
 }
