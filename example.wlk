@@ -1,3 +1,5 @@
+//PARTE 1
+
 //paquete
 
 object paquete {
@@ -70,10 +72,41 @@ object chuckNorris {
 object neo {
   var tieneCredito = true
   
-  method estadoCredito(estado) {
+  method cambiarEstadoDeCredito(estado) {
     tieneCredito = estado
   }
   
   method peso() = 0
   method puedeLlamar() = tieneCredito
+}
+
+
+//PARTE 2
+
+object mensajeria {
+  const mensajeros = []
+
+  method contratarAUnMensajero(unMensajero) {
+    return mensajeros.add(unMensajero)
+  }
+
+  method despedirAUnMensajero(unMensajero) {
+    return mensajeros.remove(unMensajero)
+  }
+
+  method despedirATodosLosMensajeros() {
+    return mensajeros.clear()
+  }
+
+  method analizarSiLaMensajeriaEsGrande() {
+    return mensajeros.size() > 2
+  }
+
+  method elPaquetePuedeSerEntregadoPorElPrimerEmpleado(unPaquete) {
+    return unPaquete.puedeSerEntregadoPor(mensajeros.first())
+  }
+
+  method elPesoDelUltimoMensajeroDeLaEmpresa() {
+    return mensajeros.last().peso()
+  }
 }

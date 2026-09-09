@@ -1,9 +1,23 @@
-import example.wlk *_
+import example.*
 
-describe "group of tests for pepita" {
-
-  test "pepita has initial energy" {
-    assert.equals(100, pepita.energy())
+describe "prueba de test de Mensajeros de pelicula" {
+  //parte 1
+  test "roberto (90kg) lleva un paquete que esta pago en un camion con un aclopado" {
+    
+    camion.cantidadAcoplados(1)
+    roberto.cambiarVehiculo(camion)
+    paquete.estadoDelPago(true)
+    paquete.cambiarDestino(puenteDeBrooklyn)
+    assert.equals(590, roberto.peso())
+    assert.that(paquete.puedeSerEntregadoPor(roberto))
+  }
+  
+  test "neo con credito no lleva un paquete que no está pago a la matrix." {
+    neo.cambiarEstadoDeCredito(true)
+    paquete.estadoDelPago(false)
+    paquete.cambiarDestino(matrix)
+    assert.notThat(paquete.puedeSerEntregadoPor(neo))
   }
 
+  //parte 2
 }
