@@ -5,7 +5,7 @@
 object paquete {
   var destino = puenteDeBrooklyn
   var estaPagado = false
-
+  
   method estadoDelPago(estado) {
     estaPagado = estado
   }
@@ -13,8 +13,10 @@ object paquete {
     destino = unDestino
   }
 
-  method puedeSerEntregadoPor(unMesajero) {
-    return estaPagado and destino.dejaPasar(unMesajero)
+  method precio() = 50
+
+  method puedeSerEntregadoPor(unMensajero) {
+    return estaPagado and destino.dejaPasar(unMensajero)
   }
 }
 
@@ -108,5 +110,34 @@ object mensajeria {
 
   method elPesoDelUltimoMensajeroDeLaEmpresa() {
     return mensajeros.last().peso()
+  }
+}
+
+
+//parte 3
+
+object paquetito {
+  method precio() = 0
+  method estaPagado() = true
+  method puedeSerEntregadoPor(unMesajero) {
+    return true
+  }
+}
+
+object paquetonViajero {
+  const destinos = []
+  var estaPagado = true
+
+  method cambiarEstadoDePago(unEstado) {
+    estaPagado = unEstado
+  }
+  method agregarDestino(unDestino) {
+    destinos.add(unDestino)
+  }
+
+  method precio() = destinos.size() * 100
+
+  method puedeSerEntregadoPor(unMensajero) {
+    return estaPagado and destinos.all({unDestino => unDestino.dejaPasar(unMensajero)})
   }
 }
