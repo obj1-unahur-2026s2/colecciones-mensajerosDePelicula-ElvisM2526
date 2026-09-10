@@ -147,8 +147,10 @@ object laEmpresaMensajera {
   const mensajeros = []
   const paquetesEnviados = []
   const paquetesPendientes = [] 
+  method paquetesEnviados() = paquetesEnviados
+  method paquetesPendientes() = paquetesPendientes
   
-  method contraTarMensajero(unMensajero) {
+  method contratarMensajero(unMensajero) {
     mensajeros.add(unMensajero)
   }
   

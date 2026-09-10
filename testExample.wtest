@@ -1,6 +1,6 @@
 import example.*
 
-describe "prueba de test de Mensajeros de pelicula" {
+describe "prueba de test de Mensajeros de pelicula parte 1" {
   //parte 1
   test "roberto (90kg) lleva un paquete que esta pago en un camion con un aclopado" {
     
@@ -18,7 +18,9 @@ describe "prueba de test de Mensajeros de pelicula" {
     paquete.cambiarDestino(matrix)
     assert.notThat(paquete.puedeSerEntregadoPor(neo))
   }
+}
 
+describe "prueba de test de Mensajeros de pelicula parte 2" {
   //parte 2
   test "la mensajeria no es grande y contrata un mensajeros con peso 95kg y 80kg" {
     mensajeria.contratarAUnMensajero(chuckNorris)
@@ -38,5 +40,48 @@ describe "prueba de test de Mensajeros de pelicula" {
     mensajeria.contratarAUnMensajero(chuckNorris)
     assert.equals(80, mensajeria.elPesoDelUltimoMensajeroDeLaEmpresa())
     assert.that(mensajeria.elPaquetePuedeSerEntregadoPorElPrimerEmpleado(paquete) )
+  }
+}
+
+
+describe "prueba de test de Mensajeros de pelicula parte 3" {
+  //1
+  test "puede ser entregado" {
+    laEmpresaMensajera.contratarMensajero(mensajeroDestacado)
+    assert.that(laEmpresaMensajera.puedeSerEntregado(paqueteEspecial))
+  }
+  
+  //2
+  test "Mensajeros que pueden llevar el paquetito" {
+    laEmpresaMensajera.contratarMensajero(mensajeroDestacado)
+    laEmpresaMensajera.contratarMensajero(roberto)
+    assert.equals([mensajeroDestacado, roberto], laEmpresaMensajera.mensajerosQuePuedenLlevar(paquetito))
+  }
+  
+  //3
+  test "Sobrepeso de roberto" {
+    laEmpresaMensajera.contratarMensajero(roberto)
+    assert.notThat(laEmpresaMensajera.tieneSobrepeso())
+  }
+  
+  //4 y 5
+  test "Enviar a roberto y Facturar" {
+    laEmpresaMensajera.contratarMensajero(roberto)
+    laEmpresaMensajera.enviar(paquetito)
+    assert.equals(0, laEmpresaMensajera.gananciaTotal())
+  }
+  
+  //6
+  test "roberto envia todos los paquetes" {
+    laEmpresaMensajera.contratarMensajero(roberto)
+    laEmpresaMensajera.enviarTodos([paquetito, paqueteEspecial])
+    assert.equals(2, laEmpresaMensajera.paquetesEnviados().size())
+  }
+  
+  //7
+  test "roberto envia el paquete pendiente mas caro" {
+    laEmpresaMensajera.contratarMensajero(roberto)
+    laEmpresaMensajera.enviar(paquetito) 
+    assert.equals(1, laEmpresaMensajera.paquetesEnviados().size())
   }
 }
