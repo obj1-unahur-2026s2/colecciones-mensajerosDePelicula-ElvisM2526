@@ -141,3 +141,73 @@ object paquetonViajero {
     return estaPagado and destinos.all({unDestino => unDestino.dejaPasar(unMensajero)})
   }
 }
+
+
+object laEmpresaMensajera {
+  const mensajeros = []
+  const paquetesEnviados = []
+  const paquetesPendientes = [] 
+  
+  method contraTarMensajero(unMensajero) {
+    mensajeros.add(unMensajero)
+  }
+  
+  //1
+  method puedeSerEntregado(unPaquete) {
+    return mensajeros.any({unMensajero => unPaquete.puedeSerEntregadoPor(unMensajero)})
+  }
+  
+  //2
+  method mensajerosQuePuedenLlevar(unPaquete) {
+    return mensajeros.filter({unMensajero => unPaquete.puedeSerEntregadoPor(unMensajero)})
+  }
+  
+  //3
+  method pesoPromedio() {
+    return mensajeros.sum({unMensajero => unMensajero.peso()}) / mensajeros.size()
+  }
+  
+  method tieneSobrepeso() {
+    return self.pesoPromedio() > 500
+  }
+  //4
+  method enviar(unPaquete) {
+    if(self.puedeSerEntregado(unPaquete)){
+      paquetesEnviados.add(unPaquete)
+    } else{
+      paquetesPendientes.add(unPaquete)
+    }
+  }
+  
+  //5
+  method gananciaTotal() {
+    return paquetesEnviados.sum({unPaquete => unPaquete.precio()})
+  }
+  
+  //6
+  method enviarTodos(collecionDePaquetes) {
+    collecionDePaquetes.forEach({unPaquete => self.enviar(unPaquete)})
+  }
+
+  // 7
+  method enviarPendienteMasCaro() {
+    const masCaro = paquetesPendientes.max({ unPaquete => unPaquete.precio() })
+    if (self.puedeSerEntregado(masCaro)) {
+      paquetesPendientes.remove(masCaro)
+      paquetesEnviados.add(masCaro)
+    }
+  }
+}
+
+//9
+object mensajeroDestacado {
+  method peso() = 70
+}
+
+object paqueteEspecial {
+  method precio() = 150
+  method estaPagado() = true
+  method puedeSerEntregadoPor(unMensajero) {
+    return true
+  }
+}
